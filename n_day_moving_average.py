@@ -9,7 +9,7 @@ class NDayMovingAverageApp:
     def __init__(self, args: Namespace):
         self.n_day = int(args.n_day)
         self.input = args.input
-        self.output =  args.output
+        self.output = args.output
         self.spark = SparkSession.builder.appName("N-day-MA").getOrCreate()
 
     def get_start_boundary(self, n_days: int) -> int:

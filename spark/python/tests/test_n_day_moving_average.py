@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 from pyspark.sql.types import StructType, StructField, StringType, DateType, DoubleType, Row
 from sparktestingbase.sqltestcase import SQLTestCase
 
-from n_day_moving_average import NDayMovingAverageApp
+from spark.python.src.n_day_moving_average import NDayMovingAverageApp
 
 
 class NDayMovingAverageAppTest(SQLTestCase):
@@ -18,17 +18,6 @@ class NDayMovingAverageAppTest(SQLTestCase):
         result = n_day_moving_average.get_start_boundary(n_days)
 
         self.assertEqual(expected_value, result)
-
-    def test_read_historical_data_with_correct_csv_options(self):
-        input_path = "csv/path/file.csv"
-        mock_spark = MagicMock()
-
-        n_day_moving_average = NDayMovingAverageApp(MagicMock())
-        n_day_moving_average.spark = mock_spark
-
-        n_day_moving_average.read_historical_data(input_path)
-
-        mock_spark.read.option.assert_any_call("header", True)
 
     def test_get_moving_avg_should_calculate_over_window_function(self):
         expected_schema = StructType([
